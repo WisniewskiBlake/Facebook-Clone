@@ -133,7 +133,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                             holder.likeSection.setEnabled(true);
                             if(response.body()==null){
                                 operationLike(holder,postModel);
-                                Toast.makeText(context,"Something went wrong ! ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context,"Something went wrong ! ",Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -160,7 +160,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 public void onError(Exception e) {
                     Picasso.get().load(ApiClient.BASE_URL_1 + postModel.getStatusImage()).placeholder(R.drawable.default_image_placeholder).into(holder.statusImage);
                 }
-
             });
         } else {
             holder.statusImage.setImageDrawable(null);
@@ -182,7 +181,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 public void onError(Exception e) {
                     Picasso.get().load(postModel.getProfileUrl()).placeholder(R.drawable.default_image_placeholder).into(holder.peopleImage);
                 }
-
             });
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {

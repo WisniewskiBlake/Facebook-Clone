@@ -8,6 +8,7 @@ import com.example.facebookapp.activity.activity.adapter.PostAdapter;
 import com.example.facebookapp.activity.activity.fragment.bottomsheets.CommentBottomSheet;
 import com.example.facebookapp.activity.activity.model.CommentModel;
 import com.example.facebookapp.activity.activity.model.FriendsModel;
+import com.example.facebookapp.activity.activity.model.NotificationModel;
 import com.example.facebookapp.activity.activity.model.PostModel;
 import com.example.facebookapp.activity.activity.model.User;
 
@@ -63,4 +64,9 @@ public interface UserInterface {
 
     @GET("retrivelowlevelcomment")
     Call<List<CommentModel.Comment>> retrieveLowLevelComment(@QueryMap Map<String, String> params);
+    @GET("getnotification")
+    Call<List<NotificationModel>> getNotification(@QueryMap Map<String, String> params);
+
+    @GET("details")
+    Call<PostModel> getPostDetails(@QueryMap Map<String, String> params);
 }

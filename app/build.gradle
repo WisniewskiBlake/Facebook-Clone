@@ -79,6 +79,9 @@ dependencies {
     implementation 'org.parceler:parceler-api:1.1.12'
     annotationProcessor 'org.parceler:parceler:1.1.12'
 
+    //cloud messaging
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+
 
 }
 apply plugin: 'com.google.gms.google-services'
