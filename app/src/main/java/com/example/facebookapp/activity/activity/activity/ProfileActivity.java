@@ -78,13 +78,16 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
      */
 
     int current_state = 0;
-    String profileUrl = "", coverUrl = "";
+    String profileUrl = "";
+    String coverUrl = "";
 
     ProgressDialog progressDialog;
     int imageUploadType = 0;
 
     String uid = "0";
     File compressedImageFile;
+
+    String cover = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,20 +99,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
 
 
         setContentView(R.layout.activity_profile);
-
-        uid = getIntent().getStringExtra("uid");
-
-
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-
-
         ButterKnife.bind(this);
-
-
-
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_back_white);
@@ -121,6 +111,13 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
             }
         });
 
+        uid = getIntent().getStringExtra("uid");
+
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
 
         if (FirebaseAuth.getInstance().getCurrentUser().getUid().equalsIgnoreCase(uid)) {
             // UID is matched , we are going to load our own profile
@@ -137,7 +134,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
             public void onClick(View v) {
                 profileOptionBtn.setEnabled(false);
                 if (current_state == 5) {
-                    CharSequence options[] = new CharSequence[]{"Change Cover Profile", "Change Profile Picture", "View Cover Picture", "View Profile Picture", "Sign Out"};
+                    CharSequence options[] = new CharSequence[]{"Change Cover Picture", "Change Profile Picture", "View Cover Picture", "View Profile Picture", "Sign Out"};
                     AlertDialog.Builder builder = new AlertDialog.Builder(ProfileActivity.this);
                     builder.setOnDismissListener(ProfileActivity.this);
                     builder.setTitle("Choose Options");
@@ -295,6 +292,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
             public void onResponse(@NonNull Call<User> call, @NonNull final Response<User> response) {
                 progressDialog.dismiss();
                 if (response.body() != null) {
+                    coverUrl = response.body().getCoverUrl();
                     showUserData(response.body());
 
                     if (response.body().getState().equalsIgnoreCase("1")) {
@@ -327,21 +325,21 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
     }
 
     private void showUserData(User user) {
-
         profileViewPagerAdapter = new ProfileViewPagerAdapter(getSupportFragmentManager(), 1,user.getUid(),user.getState());
         ViewPagerProfile.setAdapter(profileViewPagerAdapter);
 
         profileUrl = user.getProfileUrl();
-        coverUrl = user.getCoverUrl();
+
         collapsingToolbar.setTitle(user.getName());
         if (!profileUrl.isEmpty()) {
             Picasso.get().load(profileUrl).into(profileImage, new com.squareup.picasso.Callback() {
                 @Override
                 public void onSuccess() {
-
+                    System.out.println("Success");
                 }
                 @Override
                 public void onError(Exception e) {
+                    System.out.println("Error");
                     Picasso.get().load(profileUrl).into(profileImage);
                 }
             });
@@ -350,10 +348,11 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
                 Picasso.get().load(coverUrl).into(profileCover, new com.squareup.picasso.Callback() {
                     @Override
                     public void onSuccess() {
-
+                        System.out.println("Success");
                     }
                     @Override
                     public void onError(Exception e) {
+                        System.out.println("Error");
                         Picasso.get().load(coverUrl).into(profileCover);
                     }
                 });
@@ -389,7 +388,9 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
             public void onResponse(Call<User> call, Response<User> response) {
                 progressDialog.dismiss();
                 if (response.body() != null) {
+                    coverUrl = response.body().getCoverUrl();
                     showUserData(response.body());
+
                 } else {
                     Toast.makeText(ProfileActivity.this, "Something went wrong ... Please try later", Toast.LENGTH_SHORT).show();
                 }
@@ -456,6 +457,10 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
         builder.addFormDataPart("imageUploadType", imageUploadType + "");
         builder.addFormDataPart("file", compressedImageFile.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), compressedImageFile));
 
+        String pUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String iUpload = imageUploadType + "";
+        String filee = compressedImageFile.getName();
+
         MultipartBody multipartBody = builder.build();
 
         UserInterface userInterface = ApiClient.getApiClient().create(UserInterface.class);
@@ -471,6 +476,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
                             public void onSuccess() {
 
                             }
+
                             @Override
                             public void onError(Exception e) {
                                 Picasso.get().load(compressedImageFile).placeholder(R.drawable.default_image_placeholder).into(profileImage);
@@ -483,6 +489,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
                             public void onSuccess() {
 
                             }
+
                             @Override
                             public void onError(Exception e) {
                                 Picasso.get().load(compressedImageFile).placeholder(R.drawable.default_image_placeholder).into(profileCover);
@@ -505,6 +512,7 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
             }
         });
     }
+
 
     public static class   PerformAction {
         String operationType, userId, profileid;

@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     NewsFeedFragment newsFeedFragment;
     NotificationFragment notificationFragment;
     FriendsFragment friendsFragment;
+
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
 
@@ -89,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.profile_notification:
                         setFragment(notificationFragment);
                         break;
-
                 }
                 return true;
             }

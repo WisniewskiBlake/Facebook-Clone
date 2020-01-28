@@ -59,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
+
         mGoogleSignInClient = GoogleSignIn.getClient(this,gso);
         mFirebaseAuth = FirebaseAuth.getInstance();
 
@@ -73,6 +75,13 @@ public class LoginActivity extends AppCompatActivity {
                 signIn();
             }
         });
+    }
+
+    //when the sign is button is clicked we start a new intent
+    private void signIn() {
+        // Configure Google Sign In
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
@@ -91,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        // When requestCode matches RCSIGNIN then we say google sign in successful, now we need to authenticate with firebaseAuthWithGoogle
         if (requestCode == RC_SIGN_IN) {
             progressDialog.show();
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
@@ -109,7 +118,6 @@ public class LoginActivity extends AppCompatActivity {
 
     //lec 15 2:10
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mFirebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -119,8 +127,6 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             final FirebaseUser user = mFirebaseAuth.getCurrentUser();
-
-
                             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(LoginActivity.this, new OnSuccessListener<InstanceIdResult>() {
                                 @Override
                                 public void onSuccess(InstanceIdResult instanceIdResult) {
@@ -144,37 +150,30 @@ public class LoginActivity extends AppCompatActivity {
                                                 Toast.makeText(LoginActivity.this,"Something went wrong",Toast.LENGTH_SHORT).show();
                                                 FirebaseAuth.getInstance().signOut();
                                             }
-
-
                                         }
-
                                         @Override
                                         public void onFailure(Call<Integer> call, Throwable t) {
                                             FirebaseAuth.getInstance().signOut();
                                             progressDialog.dismiss();
-                                            Toast.makeText(LoginActivity.this,"Login Failed",Toast.LENGTH_SHORT).show();
+                                         //   Toast.makeText(LoginActivity.this,"Login Failed",Toast.LENGTH_SHORT).show();
                                         }
                                     });
-
                                 }
                             });
-
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-
                         }
-
-                        // ...
                     }
                 });
     }
 
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
+
+
+
+
+
+
 
     public class UserInfo{
         String uid,name,email,profileUrl,coverUrl,userToken;

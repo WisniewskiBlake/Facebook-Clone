@@ -1,4 +1,3 @@
-
 package com.example.facebookapp.activity.activity.model;
 
 import com.google.gson.annotations.Expose;

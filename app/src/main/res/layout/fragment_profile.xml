@@ -5,6 +5,8 @@
     android:background="#fff">
 
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/newsfeed"
         android:layout_width="match_parent"
