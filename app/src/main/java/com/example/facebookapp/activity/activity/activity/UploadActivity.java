@@ -42,9 +42,9 @@ public class UploadActivity extends AppCompatActivity {
     @BindView(R.id.privacy_spinner)
     Spinner privacySpinner;
     @BindView(R.id.postBtnTxt)
-    TextView postBtnTxt;
+    TextView postButtonText;
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar toolbarItem;
     @BindView(R.id.dialogAvatar)
     CircleImageView dialogAvatar;
     @BindView(R.id.status_edit)
@@ -72,10 +72,10 @@ public class UploadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upload);
         ButterKnife.bind(this);
 
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationIcon(R.drawable.arrow_back_white);
+        setSupportActionBar(toolbarItem);
+        toolbarItem.setNavigationIcon(R.drawable.arrow_back_white);
         getSupportActionBar().setTitle("");
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        toolbarItem.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -106,7 +106,7 @@ public class UploadActivity extends AppCompatActivity {
                         .single().start();
             }
         });
-        postBtnTxt.setOnClickListener(new View.OnClickListener() {
+        postButtonText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 uploadPost();
