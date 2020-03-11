@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar toolbarItem;
     @BindView(R.id.framelayout)
-    FrameLayout framelayout;
+    FrameLayout frameLayout;
     @BindView(R.id.fab)
     FloatingActionButton fab;
     @BindView(R.id.bottom_navigation)
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
-        setSupportActionBar(toolbar);
+        setSupportActionBar(toolbarItem);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
