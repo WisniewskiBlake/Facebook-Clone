@@ -22,10 +22,10 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:textStyle="bold|italic"
-                android:textSize="26sp"
+                android:textSize="30sp"
                 android:textColor="#000"
                 android:textAlignment="center"
-                android:text="Things End.\nBut Memories last Forever.\nShare your memories\nWith the World."
+                android:text="Share Your Memories\nWith The World."
                 android:layout_marginTop="75dp"/>
         </RelativeLayout>
         <com.google.android.gms.common.SignInButton
@@ -41,11 +41,5 @@
     </FrameLayout>
 
 </RelativeLayout>
-
-
-
-
-
-
 
 

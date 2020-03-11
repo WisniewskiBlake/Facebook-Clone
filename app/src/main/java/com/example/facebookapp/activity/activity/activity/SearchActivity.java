@@ -49,7 +49,6 @@ public class SearchActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.arrow_back_white);
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +65,6 @@ public class SearchActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_view,menu);
         SearchView searchView = (SearchView) menu.findItem(R.id.search1).getActionView();
-
         searchView.setIconified(false);
         ((EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.hint_color));
         ((EditText) searchView.findViewById(androidx.appcompat.R.id.search_src_text)).setHintTextColor(getResources().getColor(R.color.hint_color));
@@ -77,20 +75,17 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 searchFromDb(query, true);
-
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
-                if (query.length() > 2) {
+                if (query.length() > 1) {
                     searchFromDb(query, false);
                 } else {
                     users.clear();
                     searchAdapter.notifyDataSetChanged();
                 }
-
-
                 return true;
             }
         });

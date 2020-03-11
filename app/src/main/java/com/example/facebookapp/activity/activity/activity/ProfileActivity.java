@@ -457,9 +457,6 @@ public class ProfileActivity extends AppCompatActivity implements DialogInterfac
         builder.addFormDataPart("imageUploadType", imageUploadType + "");
         builder.addFormDataPart("file", compressedImageFile.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), compressedImageFile));
 
-        String pUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String iUpload = imageUploadType + "";
-        String filee = compressedImageFile.getName();
 
         MultipartBody multipartBody = builder.build();
 

@@ -114,7 +114,6 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
         return requests.size();
     }
 
-
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.activity_profile_single)
         CircleImageView activityProfileSingle;
@@ -122,12 +121,9 @@ public class FriendRequestAdapter extends RecyclerView.Adapter<FriendRequestAdap
         TextView activityTitleSingle;
         @BindView(R.id.action_btn)
         Button actionBtn;
-
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
-
-
 }

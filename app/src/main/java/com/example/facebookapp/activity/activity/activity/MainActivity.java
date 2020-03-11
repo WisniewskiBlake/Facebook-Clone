@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.framelayout)
