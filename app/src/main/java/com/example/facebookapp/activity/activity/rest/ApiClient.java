@@ -9,8 +9,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient extends Activity {
 
-    public  static final  String BASE_URL_1 = "http://192.168.1.14/FacebookApp/public/";
-    public  static final  String BASE_URL = "http://192.168.1.14/FacebookApp/public/app/";
+    public  static final  String BASE_URL_1 = "http://192.168.1.26/FacebookApp/public/";
+    public  static final  String BASE_URL = "http://192.168.1.26/FacebookApp/public/app/";
 
 //192.168.1.9
 
