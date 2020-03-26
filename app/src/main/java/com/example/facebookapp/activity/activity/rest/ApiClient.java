@@ -27,7 +27,6 @@ public class ApiClient extends Activity {
                     .client(httpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
-
         }
         return retrofit;
     }
