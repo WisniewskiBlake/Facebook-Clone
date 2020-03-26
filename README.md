@@ -8,3 +8,4 @@ The database can be created using the code I left in the "database" folder. The 
 
 ![](images/1.png)
 
+![](images/2.png)
